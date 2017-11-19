@@ -52,7 +52,7 @@
                     <li class="nav-item">
                         <a href="{{ route('EntregasPendiente') }}" class="nav-link ">
                             <i class="fa fa-cogs"></i>
-                            <span class="title">Entrgar pendiente</span>
+                            <span class="title">Entregar pendiente</span>
                         </a>
                     </li>
                 </ul>

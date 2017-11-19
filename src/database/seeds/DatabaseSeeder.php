@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
       $this->call(rootSeeder::class);
       $this->call(FacturasProductos::class);
       $this->call(plan_pago::class);
-      $this->call(proveedores::class);
+      $this->call(Proveedores::class);
       $this->call(usuario::class);
       $this->call(Empresas::class);
       $this->call(Contratos::class);

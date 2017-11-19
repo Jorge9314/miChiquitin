@@ -28,29 +28,28 @@ class MetodoDePago extends Controller
   }
 
   public static function compraCredito($idCliente, $valorTotalPago, $N) {
-  	$cliente = User::find($idCliente);
-		$valorTotalPago = (int)$valorTotalPago;
-		$N = (int)$N;
+    $cliente = User::find($idCliente);
+    $valorTotalPago = (int)$valorTotalPago;
+    $N = (int)$N;
 
     //dd($credito_actual);
-		$credito_actual = $cliente->credito_actual;
+    $credito_actual = $cliente->credito_actual;
     $credito_maximo = $cliente->credito_maximo;
-		//echo "Credito actual : ".$credito_actual;
-		//echo "<br>Valor total pago : ".$valorTotalPago;
-    $obj = [];
+    //echo "Credito actual : ".$credito_actual;
+    //echo "<br>Valor total pago : ".$valorTotalPago;
 
-    if ($credito_actual == $credito_maximo) return $obj;
+    if ($credito_actual == $credito_maximo) return [];
 
-		if (($credito_actual + $valorTotalPago) > $credito_maximo) return $obj;
+    $obj = self::numeroCuotas($N, $valorTotalPago);
+        if (($credito_actual + $obj["valorCompra"]) > $credito_maximo) return [];
     else {
-      $obj = self::numeroCuotas($N, $valorTotalPago);
-			//echo "<br>Valor total a pagar : ".$obj["valorPagar"];
-			$nuevo_credito_actual = $credito_actual - $valorTotalPago;
+            //echo "<br>Valor total a pagar : ".$obj["valorPagar"];
+            $nuevo_credito_actual = $credito_actual + $obj["valorCompra"];
 
-			$cliente->credito_actual = $nuevo_credito_actual;
-			$cliente->save();
+            $cliente->credito_actual = $nuevo_credito_actual;
+            $cliente->save();
 
-			return $obj;
+            return $obj;
 
     }
 	}

@@ -20,13 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'Facturacion'], function(){
-  Route::get('EliminarArticulo/{id}/{cantidadActual}/{cantidadEliminar}/{idFactura}', [
-    'uses' => 'Facturacion\ArticuloControlador@EliminarArticulo'
-  ]);
-
-  Route::get('CancelarCompra/{idFactura}', [
-    'uses' => 'Facturacion\ArticuloControlador@CancelarCompra'
-  ]);
 
   Route::get('metodoPago/{metodo}/{valorTotal}/{idCliente}/{idVendedor}/{NumeroCuotas}', [
     'uses' => 'Facturacion\MetodoDePago@metodoPago'

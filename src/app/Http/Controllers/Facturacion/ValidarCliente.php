@@ -13,7 +13,7 @@ class ValidarCliente extends Controller
 
 		if ($vendedor->tipo_rol == "vendedor" and $cliente->tipo_rol != "vendedor") {
 			return true;
-		} else if ($vendedor->tipo_rol == "root") { // puede venderle a todos
+		} else if ($vendedor->tipo_rol == "root" || $vendedor->tipo_rol == "administrador") { // puede venderle a todos
 			return true;
 		} else return false;
 	}

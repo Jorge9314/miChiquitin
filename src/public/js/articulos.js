@@ -33,8 +33,16 @@ $('#agregar').click(function(){
 					idPendiente = idPendiente.concat("pendiente");
 					$('#body').append('<tr id = '+ result.id_producto +'><td>'+result.id_producto+'</td><td>' + result.descripcion + '</td><td id= '+ idCantidad +'>' + result.cantidad + '</td><td>' + result.unitario + '</td><td id = '+ idTotal +'>' + result.total + '</td><td id = '+ idPendiente +'>' + result.pendiente + '</td><td><input type="button" class= "btn btn-primary" onclick="eliminarFila('+ result.id_producto +');" value="-"></td></tr>');
 					precio = parseInt(precio + parseFloat(result.total));
-					$('[name="numero"]').val(precio);
-					document.getElementById("numero").innerHTML = precio.toString();
+					descuentos = 0;
+					var plan = $('[name="plan_pago"]').val();
+					if(plan == "Efectivo"){
+						descuentos = parseInt(precio - (precio * 0.05) + (precio * 0.19));
+					}
+					if(plan == "Credito"){
+						descuentos = parseInt(precio + (precio * 0.05) + (precio * 0.19));
+					}
+					$('[name="numero"]').val(descuentos);
+					document.getElementById("numero").innerHTML = descuentos.toString();
 				}
 			})
 		}
@@ -54,7 +62,16 @@ $('#agregar').click(function(){
 			lista[i][4] = cantidad * lista[i][3];
 			precio = parseInt(precio + lista[i][4]);
 			document.getElementById(idTotal).innerHTML = lista[i][4];
-			document.getElementById("numero").innerHTML = precio.toString();
+			descuentos = 0;
+			var plan = $('[name="plan_pago"]').val();
+			if(plan == "Efectivo"){
+				descuentos = parseInt(precio - (precio * 0.05) + (precio * 0.19));
+			}
+			if(plan == "Credito"){
+				descuentos = parseInt(precio + (precio * 0.05) + (precio * 0.19));
+			}
+			$('[name="numero"]').val(descuentos);
+			document.getElementById("numero").innerHTML = descuentos.toString();
 			pendiente = lista[i][6] - cantidad;
 			if (lista[i][6] < 0) {
         		pendiente = -cantidad;
